@@ -15,9 +15,12 @@
     or the fragment:
         http://example.com/#host=HOST&port=PORT&encrypt=1
     -->
-    <title>noVNC</title>
-
-    <link rel="icon" type="image/x-icon" href="app/images/icons/novnc.ico">
+    
+    <!-- This part was changed by Divisora-->
+    <title>Divisora - noVNC</title>
+    
+    <link rel="icon" type="image/x-icon" href="/static/pics/favicon.ico">
+    <!-- End -->
 
     <!-- Apple iOS Safari settings -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -49,20 +52,22 @@
     <script type="module" crossorigin="anonymous" src="app/error-handler.js"></script>
     <script type="module" crossorigin="anonymous" src="app/ui.js"></script>
 
-    <!-- This part is added from Divisora-->
+    <!-- This part was added by Divisora-->
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function(e) {
             setInterval(function() {
-                var link = document.querySelector("link[rel~='icon']");
-                link.href = '/static/pics/favicon.ico?v=' + Date.now();
-            }, 3000);
+                try {
+                    respone = fetch('/keepalive?t=' + (Date.now()));
+                } catch (error) {
+                    console.log('There was an error while fetching /keepalive:', error);
+                }
+            }, 5000);
         }, false);
     </script>
     <!-- End -->
 </head>
 
 <body>
-
     <div id="noVNC_fallback_error" class="noVNC_center">
         <div>
             <div>noVNC encountered an error:</div>
